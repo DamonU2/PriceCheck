@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grocery Price Comparison</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+  <div class="price">
+      <h1 class="price_header">Check Grocery Prices</h1>
+
+      <div class="card price_headerContainer">
+          <form class="price_form" action="{{ url_for('index') }}" method="POST">
+              <input placeholder="Write ingredient here..." type="text" name="search" size="35">
+              <input class="btn btn-info" type="submit" value="Check Prices" onclick = "showLoad()">
+          </form>
+      </div>
+  </div>
+
+  <div class="container">
+      <br>
+    <div class="d-flex justify-content-center">
+        <div id="load" class="spinner-border" role="status" style="display: none;">
+          <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+        {% if thriftys %}
+            <div class="darkdiv">
+                <p>
+                    <img src="{{ url_for('static', filename='qf.png') }}" alt="Quality Foods">
+                    {{ qf.name }} {{ qf.pack }} {{ qf.price }}
+                </p>
+            </div>
+            <div class="palediv">
+                <p>
+                    <img src="{{ url_for('static', filename='superstore.svg') }}" alt="Superstore">
+                    {{ sstore.brand }} {{ sstore.name }} {{ sstore.pack }} {{ sstore.unit }} {{ sstore.price }}
+                </p>
+            </div>
+            <div class="darkdiv">
+                <p>
+                    <img src="{{ url_for('static', filename='johns.svg') }}" alt="John's">
+                    {{ johns.brand }} {{ johns.name }} {{ johns.pack }} {{ johns.unit }} {{ johns.price }}
+                </p>
+            </div>
+            <div class="palediv">
+                <p>
+                    <img src="{{ url_for('static', filename='thriftys.png') }}" alt="Thrifty's">
+                    {{ thriftys.brand }} {{ thriftys.name }} {{ thriftys.unit }} {{ thriftys.price }}
+                </p>
+            </div>
+        {% endif %}
+  </div>
+
+  <script>
+      document.addEventListener("DOMContentLoaded", function(){document.getElementById("load").style.display = "none";});
+      function showLoad() {
+            document.getElementById("load").style.display = "block";
+         }
+  </script>
+
+</body>
+</html>
